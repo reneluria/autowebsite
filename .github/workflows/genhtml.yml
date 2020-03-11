@@ -41,11 +41,11 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Download result of build setp
         uses: actions/download-artifact@v1
         with:
           name: html
-      - uses: actions/checkout@v2
       - name: Setup SSH
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
