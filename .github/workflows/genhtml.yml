@@ -25,8 +25,37 @@ jobs:
       - run: npm install
       - name: Generate pages
         run: |
+          mkdir html
           for mdfile in *md; do
             page=${mdfile%.md}
             echo $page
-            node convert.js $mdfile > ${page}.html
+            node convert.js $mdfile > html/${page}.html
           done
+      - name: Upload result
+        uses: actions/upload-artifact@v1
+        with:
+          name: html
+          path: html
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download result of build setp
+        uses: actions/download-artifact@v1
+        with:
+          name: html
+      - uses: actions/checkout@v2
+      - name: Setup SSH
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan kunk.ftp.infomaniak.com >> ~/.ssh/known_hosts
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
+      - name: Some task that fetches dependencies
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run: |
+          scp html/* kunk_github@kunk.ftp.infomaniak.com:web/website/
+
