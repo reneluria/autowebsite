@@ -2,9 +2,11 @@
 
 ![CI](https://github.com/reneluria/autowebsite/workflows/CI/badge.svg)
 
-automaticaly deployed website
+automaticaly deployed website using github actions and infomaniak
 
 converts any *.md file to an html page and then uploads it
+
+It uses an https://www.infomaniak.com/ hosting plan to provide ssh access and web hosting with https, letsencrypt, dnssec domain and all
 
 ## credits
 
