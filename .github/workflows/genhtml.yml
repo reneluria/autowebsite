@@ -26,10 +26,11 @@ jobs:
       - name: Generate pages
         run: |
           mkdir html
-          for mdfile in *md; do
+          for file in pages/*; do
+            mdfile=${file#*/}
             page=${mdfile%.md}
-            echo $page
-            node convert.js $mdfile > html/${page}.html
+            echo "Converting $page"
+            node convert.js pages/$mdfile > html/${page}.html
           done
       - name: Upload result
         uses: actions/upload-artifact@v1
