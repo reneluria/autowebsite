@@ -38,6 +38,7 @@ jobs:
           path: html
 
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Download result of build setp
