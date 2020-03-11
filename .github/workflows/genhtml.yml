@@ -55,10 +55,8 @@ jobs:
           ssh-keyscan kunk.ftp.infomaniak.com >> ~/.ssh/known_hosts
           ssh-agent -a $SSH_AUTH_SOCK > /dev/null
           ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
-      - name: Some task that fetches dependencies
+      - name: Upload files
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
-          find . -ls
-          scp autowebsite/html/* kunk_github@kunk.ftp.infomaniak.com:web/website/
-
+          scp html/* kunk_github@kunk.ftp.infomaniak.com:web/website/
