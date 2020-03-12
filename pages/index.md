@@ -21,7 +21,7 @@ Create kibana and ingress
 
 ```
 jinja2 kibana.yml.j2 -D name=elastic | kubectl apply -f -
-jinja2 kibana-ingress.yaml.j2 -D namespace=elastic -D name=elastic -D domain=cl-preprod.drive.infomaniak.com | kubectl apply -f -
+jinja2 kibana-ingress.yaml.j2 -D namespace=elastic -D name=elastic -D domain=cl-preprod.fakedomain. | kubectl apply -f -
 ```
 
 fluentd
